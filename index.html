@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login and Sign-Up Page</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #444;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      width: 380px;
+      padding: 40px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    h2 {
+      font-weight: 700;
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+      letter-spacing: 1.2px;
+      user-select: none;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #555;
+      user-select: none;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1.8px solid #ddd;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: border-color 0.3s ease;
+      outline: none;
+      font-weight: 400;
+      color: #222;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #764ba2;
+      box-shadow: 0 0 8px rgba(118, 75, 162, 0.4);
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9em;
+      margin-bottom: 15px;
+      user-select: none;
+    }
+
+    .form-actions label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .form-actions input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: #764ba2;
+    }
+
+    .form-actions a {
+      color: #764ba2;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .form-actions a:hover {
+      color: #9a70d6;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px 0;
+      background: linear-gradient(135deg, #764ba2, #667eea);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1em;
+      letter-spacing: 1.1px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(118, 75, 162, 0.4);
+      transition: background 0.4s ease;
+      user-select: none;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #5a3a8a, #4b5dbb);
+      box-shadow: 0 10px 30px rgba(75, 93, 187, 0.6);
+    }
+
+    .toggle-link {
+      text-align: center;
+      margin-top: 22px;
+      font-weight: 500;
+      color: #666;
+      user-select: none;
+    }
+
+    .toggle-link a {
+      color: #764ba2;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .toggle-link a:hover {
+      color: #9a70d6;
+      text-decoration: underline;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Smooth fade effect */
+    #login-form, #signup-form {
+      transition: opacity 0.5s ease;
+    }
+
+    /* Checkbox label pointer fix */
+    label > input[type="checkbox"] {
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" role="main" aria-label="Authentication forms">
+
+    <!-- Login Form -->
+    <section id="login-form" aria-labelledby="login-title">
+      <h2 id="login-title">Login</h2>
+      <form>
+        <div class="form-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" name="login-email" placeholder="your.email@example.com" required autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" name="login-password" placeholder="Enter your password" required autocomplete="current-password" />
+        </div>
+        <div class="form-actions">
+          <label>
+            <input type="checkbox" onclick="togglePassword('login-password')" aria-label="Show password checkbox" />
+            Show Password
+          </label>
+          <a href="#" tabindex="0" aria-label="Forgot password link">Forgot Password?</a>
+        </div>
+        <div class="form-actions">
+          <label>
+            <input type="checkbox" name="remember" />
+            Remember Me
+          </label>
+        </div>
+        <button type="submit" class="btn">Login</button>
+      </form>
+      <div class="toggle-link">
+        Don't have an account? <a href="#" onclick="toggleForms()" aria-label="Switch to sign up form">Sign Up</a>
+      </div>
+    </section>
+
+    <!-- Sign Up Form -->
+    <section id="signup-form" class="hidden" aria-labelledby="signup-title">
+      <h2 id="signup-title">Sign Up</h2>
+      <form>
+        <div class="form-group">
+          <label for="signup-username">Username</label>
+          <input type="text" id="signup-username" name="signup-username" placeholder="Choose a username" required autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label for="signup-email">Email</label>
+          <input type="email" id="signup-email" name="signup-email" placeholder="your.email@example.com" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" name="signup-password" placeholder="Create a password" required autocomplete="new-password" />
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" name="confirm-password" placeholder="Re-enter your password" required autocomplete="new-password" />
+        </div>
+        <div class="form-actions">
+          <label>
+            <input type="checkbox" onclick="togglePassword('signup-password', 'confirm-password')" aria-label="Show passwords checkbox" />
+            Show Passwords
+          </label>
+        </div>
+        <button type="submit" class="btn">Create Account</button>
+      </form>
+      <div class="toggle-link">
+        Already have an account? <a href="#" onclick="toggleForms()" aria-label="Switch to login form">Login</a>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    function toggleForms() {
+      const loginForm = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+
+      if (loginForm.classList.contains('hidden')) {
+        signupForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+      } else {
+        loginForm.classList.add('hidden');
+        signupForm.classList.remove('hidden');
+      }
+    }
+
+    function togglePassword(...ids) {
+      ids.forEach(id => {
+        const input = document.getElementById(id);
+        if (input.type === 'password') {
+          input.type = 'text';
+        } else {
+          input.type = 'password';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
